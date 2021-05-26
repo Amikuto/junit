@@ -15,14 +15,6 @@ public class User {
 
     private static int countId = 0;
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        User user = (User) o;
-//        return Objects.equals(id, user.id) && Objects.equals(userName, user.userName) && Objects.equals(age, user.age) && Objects.equals(sex, user.sex);
-//    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -60,69 +52,49 @@ public class User {
         return new ArrayList<>(allUsers.values());
     }
 
-    public static ArrayList<User> getAllUserBySex() {
-        return new ArrayList<>(allUsers.values());
+    public static List<User> getAllUserBySex(Sex inputSex) {
+        List<User> resultList = new ArrayList<>();
+        for (User user : allUsers.values()) {
+            if (user.getSex().equals(inputSex)) {
+                resultList.add(user);
+            }
+        }
+        return resultList;
     }
 
-    //    public User(Long id, String userName, Integer age, String sex) {
-//        this.id = id;
-//        this.userName = userName;
-//        this.age = age;
-//        this.sex = sex;
-//    }
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getUserName() {
-//        return userName;
-//    }
-//
-//    public void setUserName(String userName) {
-//        this.userName = userName;
-//    }
-//
-//    public Integer getAge() {
-//        return age;
-//    }
-//
-//    public void setAge(Integer age) {
-//        this.age = age;
-//    }
-//
-//    public String getSex() {
-//        return sex;
-//    }
-//
-//    public void setSex(String sex) {
-//        this.sex = sex;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "utils.User{" +
-//                "id=" + id +
-//                ", userName='" + userName + '\'' +
-//                ", age=" + age +
-//                ", sex='" + sex + '\'' +
-//                '}';
-//    }
-//
-////    @Override
-////    public boolean equals(Object o) {
-////        if (this == o) return true;
-////        if (o == null || getClass() != o.getClass()) return false;
-////        utils.User user = (utils.User) o;
-////        return Objects.equals(id, user.id) && Objects.equals(userName, user.userName) && Objects.equals(age, user.age) && Objects.equals(sex, user.sex);
-////    }
-////
-////    @Override
-////    public int hashCode() {
-////        return Objects.hash(id, userName, age, sex);
-////    }
+    public static int getUsersCount() {
+        return allUsers.size();
+    }
+
+    public static int getUsersCountBySex(Sex inputSex) {
+        return getAllUserBySex(inputSex).size();
+    }
+
+    public static double getUsersMiddleAge() {
+        long ageSum = 0;
+        for (User user : allUsers.values())
+            ageSum += user.getAge();
+
+        return (double) ageSum / allUsers.size();
+    }
+
+    public static double getUsersMiddleAgeBySex(Sex inputSex) {
+        long ageSum = 0;
+        int counter = 0;
+        for (User user : allUsers.values()) {
+            if (user.getSex().equals(inputSex)) {
+                ageSum += user.getAge();
+                counter++;
+            }
+        }
+        return (double) ageSum / counter;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public utils.Sex getSex() {
+        return sex;
+    }
 }
